@@ -65,7 +65,7 @@ TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
 
 # Download setup script
-wget -qL https://github.com/Sthopeless/proxmox_bitwarden/raw/main/setup.sh
+wget -qL https://github.com/Wyrzel/proxmox_bitwarden/raw/vs_code/setup.sh
 
 # Detect modules and automatically load at boot
 ###load_module aufs
@@ -138,7 +138,7 @@ else
   mkfs.ext4 $(pvesm path $ROOTFS) &>/dev/null
 fi
 ARCH=$(dpkg --print-architecture)
-HOSTNAME=BitWarden
+HOSTNAME=vs_code
 TEMPLATE_STRING="local:vztmpl/${TEMPLATE}"
 pct create $CTID $TEMPLATE_STRING -arch $ARCH -features nesting=1 \
   -hostname $HOSTNAME -net0 name=eth0,bridge=vmbr0,ip=dhcp -onboot 1 \
