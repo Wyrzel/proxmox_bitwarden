@@ -54,20 +54,6 @@ EOF
 msg "Installing Docker..."
 sh <(curl -sSL https://get.docker.com) &>/dev/null
 
-# Install Portainer
-msg "Installing Portainer..."
-FOLDER_PORTAINER='/docker/portainer'
-mkdir -p $(dirname $FOLDER_PORTAINER)
-docker run -d \
-  -p 8000:8000 \
-  -p 9000:9000 \
-  --label com.centurylinklabs.watchtower.enable=true \
-  --name=portainer \
-  --restart=always \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /docker/portainer:/data \
-  portainer/portainer-ce &>/dev/null
-
 # Install Watchtower
 msg "Installing Watchtower..."
 docker run -d \
@@ -90,20 +76,6 @@ docker run -d \
   -v /docker:/config/workspace/Server \
   --restart unless-stopped \
   ghcr.io/linuxserver/code-server &>/dev/null
-
-# Install BitWarden
-msg "Installing BitWarden..."
-FOLDER_BITWARDEN='/docker/bitwarden'
-mkdir -p $(dirname $FOLDER_BITWARDEN)
-docker run -d \
-  --name bitwarden \
-  --label com.centurylinklabs.watchtower.enable=false \
-  -v /docker/bitwarden:/data/ \
-  -v /etc/timezone:/etc/timezone:ro \
-  -v /etc/localtime:/etc/localtime:ro \
-  -p 80:80 -p 3012:3012 \
-  -e ADMIN_TOKEN=RootPassword \
-  bitwardenrs/server:latest &>/dev/null
 
 # Customize container
 msg "Customizing container..."
