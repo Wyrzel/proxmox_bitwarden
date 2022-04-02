@@ -65,7 +65,7 @@ TEMP_DIR=$(mktemp -d)
 pushd $TEMP_DIR >/dev/null
 
 # Download setup script
-wget -qL https://github.com/Wyrzel/proxmox_bitwarden/raw/vs_code/setup.sh
+wget -qL https://github.com/Wyrzel/proxmox_bitwarden/raw/bitwarden/setup.sh
 
 # Detect modules and automatically load at boot
 ###load_module aufs
