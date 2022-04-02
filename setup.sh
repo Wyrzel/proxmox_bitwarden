@@ -63,19 +63,19 @@ docker run -d \
   --cleanup \
   --label-enable &>/dev/null
 
-# Install VSCode
-msg "Installing VSCode..."
-FOLDER_VSCODE='/docker/vscode'
-mkdir -p $(dirname $FOLDER_VSCODE)
+# Install BitWarden
+msg "Installing BitWarden..."
+FOLDER_BITWARDEN='/docker/bitwarden'
+mkdir -p $(dirname $FOLDER_BITWARDEN)
 docker run -d \
-  --name=vscode \
-  -e TZ=Europe/Amsterdam \
-  -p 8443:8443 \
-  --label com.centurylinklabs.watchtower.enable=true \
-  -v /docker/vscode:/config \
-  -v /docker:/config/workspace/Server \
-  --restart unless-stopped \
-  ghcr.io/linuxserver/code-server &>/dev/null
+  --name bitwarden \
+  --label com.centurylinklabs.watchtower.enable=false \
+  -v /docker/bitwarden:/data/ \
+  -v /etc/timezone:/etc/timezone:ro \
+  -v /etc/localtime:/etc/localtime:ro \
+  -p 80:80 -p 3012:3012 \
+  -e ADMIN_TOKEN=RootPassword \
+  bitwardenrs/server:latest &>/dev/null
 
 # Customize container
 msg "Customizing container..."
